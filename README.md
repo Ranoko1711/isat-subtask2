@@ -1,56 +1,54 @@
-# isat-subtask2
 #include <iostream>
 #include <bitset>
 #include <string>
 #include <sstream>
-
+#include <cstdlib>   // for rand()
+#include <ctime>     // for seeding random numbers
 using namespace std;
 
-// Function to convert Decimal to Binary
+// Convert Decimal to Binary
 string decimalToBinary(int num) {
-    return bitset<16>(num).to_string(); // 16-bit representation
+    return bitset<16>(num).to_string();
 }
 
-// Function to convert Binary to Decimal
+// Convert Binary to Decimal
 int binaryToDecimal(string bin) {
     return stoi(bin, nullptr, 2);
 }
 
-// Function to convert Decimal to Hexadecimal
+// Convert Decimal to Hexadecimal
 string decimalToHex(int num) {
     stringstream ss;
     ss << hex << uppercase << num;
     return ss.str();
 }
 
-// Function to convert Decimal to Octal
-string decimalToOctal(int num) {
-    stringstream ss;
-    ss << oct << num;
-    return ss.str();
+// Convert Hexadecimal to Decimal
+int hexToDecimal(string hexNum) {
+    return stoi(hexNum, nullptr, 16);
 }
 
-// Demo function
+// Demo function (random number to binary)
 void demo() {
-    cout << "\n--- Demo Conversions ---\n";
-    cout << "Decimal 10 -> Binary: " << decimalToBinary(10) << endl;
-    cout << "Binary 1010 -> Decimal: " << binaryToDecimal("1010") << endl;
-    cout << "Decimal 255 -> Hexadecimal: " << decimalToHex(255) << endl;
-    cout << "Decimal 64 -> Octal: " << decimalToOctal(64) << endl;
-    cout << "------------------------\n\n";
+    srand(time(0)); // seed random generator
+    int randomNum = rand() % 100; // random number between 0 and 99
+    cout << "\n--- Demo Option ---\n";
+    cout << "Random number generated: " << randomNum << endl;
+    cout << "Binary form: " << decimalToBinary(randomNum) << endl;
+    cout << "-------------------\n\n";
 }
 
 int main() {
     int choice, num;
-    string bin;
+    string bin, hexNum;
 
     do {
         cout << "\n===== Number Converter Menu =====\n";
         cout << "1. Decimal to Binary\n";
         cout << "2. Binary to Decimal\n";
         cout << "3. Decimal to Hexadecimal\n";
-        cout << "4. Decimal to Octal\n";
-        cout << "5. Demo Examples\n";
+        cout << "4. Hexadecimal to Decimal\n";
+        cout << "5. Demo (Random number to Binary)\n";
         cout << "0. Exit\n";
         cout << "Choose an option: ";
         cin >> choice;
@@ -72,9 +70,9 @@ int main() {
                 cout << "Hexadecimal: " << decimalToHex(num) << endl;
                 break;
             case 4:
-                cout << "Enter Decimal number: ";
-                cin >> num;
-                cout << "Octal: " << decimalToOctal(num) << endl;
+                cout << "Enter Hexadecimal number: ";
+                cin >> hexNum;
+                cout << "Decimal: " << hexToDecimal(hexNum) << endl;
                 break;
             case 5:
                 demo();
